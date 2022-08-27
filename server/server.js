@@ -13,6 +13,7 @@
 
 const express = require("express");
 const morgan = require("morgan");
+const { getAllEvents } = require("./handlers");
 
 const PORT = process.env.PORT || 8000;
 
@@ -24,8 +25,8 @@ express()
   .use("/", express.static(__dirname + "/"))
 
   //endpoints examples
-  // .get("/allEvents", getAllEvents)
 
+  .get("/allEvents", getAllEvents)
   // .post("/exercise-1/users", addUser)
   // .post("/exercise-2/greeting", createGreeting)
   // .get("/exercise-2/greeting/:_id", getGreeting)

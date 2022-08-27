@@ -1,17 +1,49 @@
 import styled from "styled-components";
+import { useContext } from "react";
 import { BsSearch } from "react-icons/bs";
 import { AiOutlineMenu } from "react-icons/ai";
 import { IconContext } from "react-icons/lib";
+import { IoMdLogOut } from "react-icons/io";
 import { device } from "./screenSizes";
+import { MdAccountCircle } from "react-icons/md";
+import { Link } from "react-router-dom";
+import { GlobalContext } from "../globalContext";
+import { useAuth0 } from "@auth0/auth0-react";
+
 const Header = () => {
+  const { user, isAuthenticated, logout, loginWithRedirect } = useAuth0();
+
   return (
     <HeaderWrapper>
       <h1 className="logo">Logo</h1>
-      <IconContext.Provider value={{ color: "black", size: "30px" }}>
-        <div className="mobileMenuIcon">
-          <AiOutlineMenu />
-        </div>
-      </IconContext.Provider>
+
+      <div className="MobileAccountMenuDiv">
+        {isAuthenticated ? (
+          <IconContext.Provider value={{ color: "black", size: "30px" }}>
+            <div className="acountIcon">
+              <span>{user.given_name}</span>
+              <button onClick={() => logout()}>
+                <IoMdLogOut />
+              </button>
+            </div>
+          </IconContext.Provider>
+        ) : (
+          <IconContext.Provider value={{ color: "black", size: "30px" }}>
+            <div className="acountIcon">
+              <button onClick={() => loginWithRedirect()}>
+                <MdAccountCircle />
+              </button>
+            </div>
+          </IconContext.Provider>
+        )}
+
+        <IconContext.Provider value={{ color: "black", size: "30px" }}>
+          <div className="mobileMenuIcon">
+            <AiOutlineMenu />
+          </div>
+        </IconContext.Provider>
+      </div>
+
       <IconContext.Provider value={{ color: "black", size: "22.5px" }}>
         <div className="searchBar">
           <textarea className="textArea" placeholder="Search..."></textarea>
@@ -42,8 +74,27 @@ const HeaderWrapper = styled.div`
   .logo {
     margin: 0 0 0 12px;
   }
+
+  .MobileAccountMenuDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .acountIcon {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    button {
+      border: none;
+      background-color: white;
+    }
+  }
+
   .mobileMenuIcon {
-    margin: 0 12px 0 0;
+    margin: 14px;
   }
 
   @media ${device.laptop} {
