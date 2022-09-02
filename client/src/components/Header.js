@@ -6,22 +6,25 @@ import { IconContext } from "react-icons/lib";
 import { IoMdLogOut } from "react-icons/io";
 import { device } from "./screenSizes";
 import { MdAccountCircle } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { GlobalContext } from "../globalContext";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Header = () => {
   const { user, isAuthenticated, logout, loginWithRedirect } = useAuth0();
+  const { currentUser } = useContext(GlobalContext);
 
   return (
     <HeaderWrapper>
-      <h1 className="logo">Logo</h1>
+      <NavLink to="/">
+        <h1 className="logo">Logo</h1>
+      </NavLink>
 
       <div className="MobileAccountMenuDiv">
         {isAuthenticated ? (
           <IconContext.Provider value={{ color: "black", size: "30px" }}>
             <div className="acountIcon">
-              <span>{user.given_name}</span>
+              <span>{currentUser?.given_name}</span>
               <button onClick={() => logout()}>
                 <IoMdLogOut />
               </button>

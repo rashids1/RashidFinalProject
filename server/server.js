@@ -13,7 +13,12 @@
 
 const express = require("express");
 const morgan = require("morgan");
-const { getAllEvents } = require("./handlers");
+const {
+  getAllEvents,
+  pushUserToDataBase,
+  getUserInformation,
+  getEventInformation,
+} = require("./handlers");
 
 const PORT = process.env.PORT || 8000;
 
@@ -27,6 +32,9 @@ express()
   //endpoints examples
 
   .get("/allEvents", getAllEvents)
+  .get("/users/:userId", getUserInformation)
+  .get("/events/:eventId", getEventInformation)
+  .post("/newUser", pushUserToDataBase)
   // .post("/exercise-1/users", addUser)
   // .post("/exercise-2/greeting", createGreeting)
   // .get("/exercise-2/greeting/:_id", getGreeting)

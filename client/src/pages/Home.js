@@ -10,15 +10,11 @@ import { GlobalContext } from "../globalContext";
 const Home = () => {
   const [allEvents, setAllEvents] = useState();
 
-  const { user, isAuthenticated, logout, loginWithRedirect } = useAuth0();
-
   useEffect(() => {
     fetch("/allEvents")
       .then((response) => response.json())
       .then((data) => setAllEvents(data.data));
   }, []);
-
-  console.log("user", user);
 
   return (
     <HomeWrapper>
