@@ -12,7 +12,13 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const Header = () => {
   const { user, isAuthenticated, logout, loginWithRedirect } = useAuth0();
-  const { currentUser } = useContext(GlobalContext);
+  const { currentUser, setCurrentUser } = useContext(GlobalContext);
+
+  const logmeout = async (event) => {
+    event.preventDefault();
+    setCurrentUser(false);
+    logout();
+  };
 
   return (
     <HeaderWrapper>
@@ -21,11 +27,11 @@ const Header = () => {
       </NavLink>
 
       <div className="MobileAccountMenuDiv">
-        {isAuthenticated ? (
+        {currentUser ? (
           <IconContext.Provider value={{ color: "black", size: "30px" }}>
             <div className="acountIcon">
               <span>{currentUser?.given_name}</span>
-              <button onClick={() => logout()}>
+              <button onClick={(event) => logmeout(event)}>
                 <IoMdLogOut />
               </button>
             </div>

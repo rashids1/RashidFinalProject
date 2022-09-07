@@ -18,6 +18,8 @@ const {
   pushUserToDataBase,
   getUserInformation,
   getEventInformation,
+  joinEvent,
+  getEventInformationById,
 } = require("./handlers");
 
 const PORT = process.env.PORT || 8000;
@@ -34,7 +36,9 @@ express()
   .get("/allEvents", getAllEvents)
   .get("/users/:userId", getUserInformation)
   .get("/events/:eventId", getEventInformation)
+  .get("/event/:_id", getEventInformationById)
   .post("/newUser", pushUserToDataBase)
+  .post("/joinEvent", joinEvent)
   // .post("/exercise-1/users", addUser)
   // .post("/exercise-2/greeting", createGreeting)
   // .get("/exercise-2/greeting/:_id", getGreeting)

@@ -7,41 +7,52 @@ import styled from "styled-components";
 
 const UserProfile = () => {
   const [userInformation, setUserInformation] = useState(false);
+  const { currentUser } = useContext(GlobalContext);
   let { userId } = useParams();
 
-  const fetchUsers = async () => {
+  const fetchUserInfo = async () => {
     const fetchedInfo = await fetch(`/users/${userId}`);
     const userInformation = await fetchedInfo.json();
-    setUserInformation(userInformation);
-    console.log("userInformation", userInformation);
+    setUserInformation(userInformation.data);
   };
 
   useEffect(() => {
-    fetchUsers();
+    fetchUserInfo();
   }, []);
 
-  const { given_name, family_name, email, eventsJoined, _id, name } =
-    userInformation?.data;
+  if (userInformation._id === currentUser._id) {
+    const { email, eventsJoined, _id, name } = userInformation;
 
-  return (
-    <>
-      {userInformation && (
-        <>
-          {given_name ? (
-            <h1>
-              Welcome,
-              <span>{given_name}!</span>
-            </h1>
-          ) : (
-            <h1>Your Account Dashboard</h1>
-          )}
+    return (
+      <>
+        {userInformation && (
+          <>
+            <p>profile picutre</p>
+            <h4>Your Profile Dashboard</h4>
 
-          <EventsUserJoined userId={userId} eventsJoined={eventsJoined} />
-          <EventsCreatedByUser />
-        </>
-      )}
-    </>
-  );
+            <EventsUserJoined userId={userId} eventsJoined={eventsJoined} />
+            <EventsCreatedByUser />
+          </>
+        )}
+      </>
+    );
+  } else if (userInformation) {
+    const { email, eventsJoined, _id, name } = userInformation;
+
+    return (
+      <>
+        {userInformation && (
+          <>
+            <p>profile picutre</p>
+            <h4>{name}'s, Profile</h4>
+
+            <EventsUserJoined userId={userId} eventsJoined={eventsJoined} />
+            <EventsCreatedByUser />
+          </>
+        )}
+      </>
+    );
+  }
 };
 export default UserProfile;
 
