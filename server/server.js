@@ -20,6 +20,7 @@ const {
   getEventInformation,
   joinEvent,
   getEventInformationById,
+  getAllEventsLimitOf2,
 } = require("./handlers");
 
 const PORT = process.env.PORT || 8000;
@@ -34,6 +35,7 @@ express()
   //endpoints examples
 
   .get("/allEvents", getAllEvents)
+  .get("/allEventsLimitOf3", getAllEventsLimitOf2)
   .get("/users/:userId", getUserInformation)
   .get("/events/:eventId", getEventInformation)
   .get("/event/:_id", getEventInformationById)

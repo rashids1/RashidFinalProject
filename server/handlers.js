@@ -30,6 +30,25 @@ const getAllEvents = async (req, res) => {
   console.log("disconenected!");
 };
 
+const getAllEventsLimitOf2 = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+  await client.connect();
+  const db = client.db("workout4all");
+
+  try {
+    console.log("connected");
+    const allEvents = await db.collection("events").find().limit(3).toArray();
+    res.status(200).json({ status: 200, data: allEvents });
+  } catch (err) {
+    res
+      .status(500)
+      .json({ status: 500, Message: "Nothing was found", Error: err });
+  }
+
+  client.close();
+  console.log("disconenected!");
+};
+
 const getUserInformation = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
   await client.connect();
@@ -164,8 +183,8 @@ const joinEvent = async (req, res) => {
     }
     //already joined, will not be added to db
     else if (alreadyJoined.length >= 1) {
-      res.status(400).json({
-        status: 400,
+      res.status(200).json({
+        status: 200,
         Message: "User Already Joined",
         userId: userId,
       });
@@ -181,6 +200,7 @@ const joinEvent = async (req, res) => {
 
 module.exports = {
   getAllEvents,
+  getAllEventsLimitOf2,
   pushUserToDataBase,
   getUserInformation,
   getEventInformation,

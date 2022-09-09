@@ -10,6 +10,8 @@ import EventsCreatedByUser from "./pages/EventsCreatedByUser";
 import EventsUserJoined from "./pages/EventsUserJoined";
 import Home from "./pages/Home";
 import UserProfile from "./pages/UserProfile";
+import DrawerMenu from "./components/DrawerMenu";
+import EventsNearYou from "./pages/EventsNearYou";
 
 function App() {
   const { currentUser, setCurrentUser } = useContext(GlobalContext);
@@ -19,11 +21,13 @@ function App() {
       <Router>
         <Header />
         <NavBar />
+        <DrawerMenu />
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/events/allEvents" element={<AllEvents />} />
           <Route exact path="/events/:eventId" element={<EventDetails />} />
           <Route exact path="/user/:userId" element={<UserProfile />} />
+          <Route exact path="/eventsNearYou" element={<EventsNearYou />} />
         </Routes>
       </Router>
       <Footer />

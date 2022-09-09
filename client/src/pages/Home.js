@@ -6,12 +6,13 @@ import { NavLink } from "react-router-dom";
 import map from "../pictures/map.png";
 import { useAuth0 } from "@auth0/auth0-react";
 import { GlobalContext } from "../globalContext";
+import HomeMap from "../components/HomeMap";
 
 const Home = () => {
   const [allEvents, setAllEvents] = useState();
 
   useEffect(() => {
-    fetch("/allEvents")
+    fetch("/allEventsLimitOf3")
       .then((response) => response.json())
       .then((data) => setAllEvents(data.data));
   }, []);
@@ -21,7 +22,7 @@ const Home = () => {
       <div className="Banner">
         <img src={tempBanner} style={{ width: "100%" }}></img>
       </div>
-      <h2>All Upcoming Events</h2>
+      <h2>Events</h2>
       {allEvents ? (
         <div className="allEvents">
           {allEvents.map((event, index) => {
@@ -47,9 +48,7 @@ const Home = () => {
 
       <NavLink to="/events/allEvents">View All Upcoming Events</NavLink>
       <h2>Events Near You</h2>
-      <div className="eventsMap">
-        <img src={map} />
-      </div>
+      <HomeMap />
     </HomeWrapper>
   );
 };
@@ -71,10 +70,8 @@ const HomeWrapper = styled.div`
     margin: 0;
   }
   .eventsMap {
+    height: 180px;
     border: 1px solid red;
-    img {
-      width: 100%;
-    }
   }
 `;
 

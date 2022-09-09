@@ -5,35 +5,37 @@ const date = new Date();
 const events = [
   {
     _id: uuidv4(),
-    title: "Pilates in Parc Angrignon with Mario",
+    title: "Pilates in Parc du Bois-Franc with Mario",
     description:
-      "Come workout with us in Parc Angrignon  24th of september at 5pm Bring your towel!",
+      "Come workout with us in Parc du Bois-Franc 24th of september at 5pm Bring your towel!",
     date: "2022,09,24",
     trainer: "Mario",
     dateCreated: date,
     requiresPayment: false,
     userIdsJoined: [],
     price: 0,
-    adress: "250 wellington",
+    adress: "2145 Chinook St",
     city: "Montreal",
     province: "Qc",
     country: "Canada",
+    coordinates: [45.515999, -73.711639],
   },
   {
     _id: uuidv4(),
     title: "Outdoor boxing cardio With Elena",
     description:
-      "Come Burn some calories with us in Parc Laval  sunday 22 october 2022 at 5pm Bring your towel!",
+      "Come Burn some calories with us in Parc Hartenstein sunday 22 october 2022 at 5pm Bring your towel!",
     date: "2022,10,22",
     trainer: "Elena",
     dateCreated: date,
     requiresPayment: false,
     userIdsJoined: [],
     price: 0,
-    adress: "404 street",
+    adress: "1505 Cardinal St",
     city: "Montreal",
     province: "Qc",
     country: "Canada",
+    coordinates: [45.5178, -73.6912],
   },
 ];
 

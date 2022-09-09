@@ -62,6 +62,8 @@ export const GlobalProvider = ({ children }) => {
     localStorage.setItem("currentUser", JSON.stringify(currentUser));
   });
 
+  console.log("currentUser", currentUser);
+
   //1/if user exists send back user object from the database
   //2 if user does not exist in db , create a new user and send back the user object from tnhe db
   // so create new user then send it back to us to use it

@@ -1,8 +1,7 @@
 const { MongoClient } = require("mongodb");
-// const greetings = require("./data/greetings.json");
-const { events, Users } = require("./MockData.js");
 
 require("dotenv").config();
+
 const { MONGO_URI } = process.env;
 
 const options = {
@@ -10,13 +9,16 @@ const options = {
   useUnifiedTopology: true,
 };
 
+const { v4: uuidv4 } = require("uuid");
+const { events, Users } = require("./MockData.js");
+
 const batchImport = async () => {
   const client = new MongoClient(MONGO_URI, options);
+  await client.connect();
+  const db = client.db("workout4all");
   try {
-    await client.connect();
-    const db = client.db("workout4all");
-    await db.collection("events").insertMany(events);
     console.log("connected");
+    const importData = await db.collection("events").insertMany(events);
   } catch (err) {
     console.log("error:", err.stack);
   }
@@ -24,4 +26,4 @@ const batchImport = async () => {
   console.log("disconenected!");
 };
 
-// batchImport();
+batchImport();

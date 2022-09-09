@@ -9,10 +9,16 @@ import { MdAccountCircle } from "react-icons/md";
 import { Link, NavLink } from "react-router-dom";
 import { GlobalContext } from "../globalContext";
 import { useAuth0 } from "@auth0/auth0-react";
+import DrawerMenu from "./DrawerMenu";
 
 const Header = () => {
   const { user, isAuthenticated, logout, loginWithRedirect } = useAuth0();
-  const { currentUser, setCurrentUser } = useContext(GlobalContext);
+  const {
+    currentUser,
+    setCurrentUser,
+    visibleDrawerMenu,
+    setVisibleDrawerMenu,
+  } = useContext(GlobalContext);
 
   const logmeout = async (event) => {
     event.preventDefault();
@@ -48,7 +54,9 @@ const Header = () => {
 
         <IconContext.Provider value={{ color: "black", size: "30px" }}>
           <div className="mobileMenuIcon">
-            <AiOutlineMenu />
+            <button onClick={() => setVisibleDrawerMenu(!visibleDrawerMenu)}>
+              <AiOutlineMenu />
+            </button>
           </div>
         </IconContext.Provider>
       </div>
