@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { icon, Icon } from "leaflet";
-import "./map.css";
+import "./css/map.css";
 import { NavLink } from "react-router-dom";
 const HomeMap = () => {
   const [allEvents, setAllEvents] = useState();
@@ -13,13 +13,11 @@ const HomeMap = () => {
       .then((data) => setAllEvents(data.data));
   }, []);
 
-  console.log("All events", allEvents);
-
   if (allEvents) {
     return (
       <MapContainer
         center={[45.50169, -73.567253]}
-        zoom={12}
+        zoom={11}
         scrollWheelZoom={false}
       >
         <TileLayer
@@ -33,14 +31,16 @@ const HomeMap = () => {
               key={`idOfEvent${thisEvent._id}`}
               position={thisEvent.coordinates}
             >
-              <Popup>
+              <Popup className="popupHome">
                 <h1>{thisEvent.title}</h1>
                 <p>{thisEvent.date}</p>
                 <h5>
                   {thisEvent.price == 0 ? "Free" : `Price:\$${thisEvent.price}`}
                 </h5>
                 <h5>Category: {thisEvent.category}</h5>
-                <NavLink to={`/events/${thisEvent._id}`}>See Details</NavLink>
+                <NavLink to={`/events/${thisEvent._id}`}>
+                  <h4>See Details</h4>
+                </NavLink>
               </Popup>
             </Marker>
           );

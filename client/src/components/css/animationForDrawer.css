@@ -1,0 +1,81 @@
+.initialState {
+  display: none;
+}
+.visibleDrawer {
+  animation-name: visibledrawer;
+  animation-duration: 0.2s;
+  opacity: 1;
+  height: 100%;
+  padding: 0;
+  position: absolute;
+  z-index: 3;
+  background-color: #e8e8e8;
+  width: 75vw;
+}
+.hiddenDrawer {
+  animation-name: notVisible;
+  animation-duration: 0.2s;
+  transform: translate(-150px, -0px);
+  position: absolute;
+  opacity: 0;
+  height: 0;
+  visibility: hidden;
+  width: 0;
+}
+
+@keyframes visibledrawer {
+  0% {
+    transform: translate(-150px, -0px);
+    opacity: 0;
+    height: 100vh;
+    position: absolute;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+  }
+  100% {
+    width: 75vw;
+    transform: translate(0px, 0px);
+    opacity: 1;
+    height: 100%;
+    padding: 0;
+    position: absolute;
+    z-index: 3;
+    background-color: #e8e8e8;
+  }
+}
+
+@keyframes notVisible {
+  0% {
+    width: 75vw;
+    transform: translate(0px, 0px);
+    opacity: 1;
+    height: 100vh;
+    padding: 0;
+    position: absolute;
+    z-index: 3;
+    background-color: #e8e8e8;
+    visibility: visible;
+  }
+  99% {
+    transform: translate(-150px, -0px);
+    width: 30vw;
+    opacity: 0;
+    height: 100vh;
+    position: absolute;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    visibility: hidden;
+  }
+  100% {
+    transform: translate(-150px, -0px);
+    opacity: 0;
+    height: 0;
+    width: 0;
+
+    visibility: hidden;
+  }
+}

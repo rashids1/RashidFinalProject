@@ -3,6 +3,7 @@ import { GlobalContext } from "../globalContext";
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import "./css/animationForDrawer.css";
 
 const DrawerMenu = () => {
   const {
@@ -11,18 +12,27 @@ const DrawerMenu = () => {
     visibleDrawerMenu,
     setVisibleDrawerMenu,
   } = useContext(GlobalContext);
-  const { user, isAuthenticated, logout, loginWithRedirect, loginWithPopup } =
-    useAuth0();
+  const { user, isAuthenticated, logout, loginWithRedirect } = useAuth0();
 
   const closeDrawer = () => {
-    if (visibleDrawerMenu === true) {
-      return setVisibleDrawerMenu(false);
+    if (visibleDrawerMenu === "visible" || "initial") {
+      return setVisibleDrawerMenu("notVisible");
     }
   };
 
-  console.log(visibleDrawerMenu);
+  console.log("visibleDrawerMenu", visibleDrawerMenu);
   return (
-    <StyledDrawerDiv visible={visibleDrawerMenu}>
+    <div
+      className={
+        visibleDrawerMenu === "initial"
+          ? "initialState"
+          : visibleDrawerMenu === "visible"
+          ? "visibleDrawer"
+          : visibleDrawerMenu === "notVisible"
+          ? "hiddenDrawer"
+          : "visible"
+      }
+    >
       <div className="drawerMenu">
         <NavLink to={"/events/allEvents"}>
           <h5
@@ -56,33 +66,51 @@ const DrawerMenu = () => {
           <h5 onClick={() => loginWithRedirect()}>Sign In</h5>
         )}
       </div>
-
-      <button>Create Your Own Event!</button>
-    </StyledDrawerDiv>
+      {currentUser ? (
+        <NavLink to={"/createYourOwnEvent"}>
+          <button
+            onClick={() => {
+              closeDrawer();
+            }}
+          >
+            Create Your Own Event!
+          </button>
+        </NavLink>
+      ) : (
+        <button onClick={() => loginWithRedirect()}>
+          Create Your Own Event!
+        </button>
+      )}
+    </div>
   );
 };
 export default DrawerMenu;
 
-const StyledDrawerDiv = styled.div`
-  a {
-    text-decoration: none;
-    color: inherit;
-  }
-  opacity: 0;
-  ${(props) =>
-    props.visible
-      ? `
-      display: flex;
-      width:75%;  
-      opacity: 1;
-    `
-      : `display: none;
-      `};
-  transition: opacity 3s;
-  flex-direction: column;
-  position: absolute;
-  z-index: 3;
-  background-color: #e8e8e8;
+// const StyledDrawerDiv = styled.div`
+//   a {
+//     text-decoration: none;
+//     color: inherit;
+//   }
+//   animation-name: view;
+//   animation-duration: 2s;
 
-  height: 100vh;
-`;
+//   ${(props) =>
+//     props.visible
+//       ? `
+
+//       @keyframes view{
+//         0%{ background-color: #e8e8e8;}
+//         100%{background-color: blue;}
+//       }
+//     `
+//       : `
+
+//       `};
+
+//   flex-direction: column;
+//   position: absolute;
+//   z-index: 3;
+//   background-color: #e8e8e8;
+
+//   height: 100vh;
+// `;

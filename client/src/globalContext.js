@@ -5,7 +5,7 @@ import { device } from "./components/screenSizes";
 export const GlobalContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
-  const [visibleDrawerMenu, setVisibleDrawerMenu] = useState(false);
+  const [visibleDrawerMenu, setVisibleDrawerMenu] = useState("initial");
 
   const [currentUser, setCurrentUser] = useState(() => {
     const currentUserFromLocalStorage = localStorage.getItem("currentUser");
@@ -61,8 +61,6 @@ export const GlobalProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem("currentUser", JSON.stringify(currentUser));
   });
-
-  console.log("currentUser", currentUser);
 
   //1/if user exists send back user object from the database
   //2 if user does not exist in db , create a new user and send back the user object from tnhe db

@@ -12,12 +12,15 @@ import Home from "./pages/Home";
 import UserProfile from "./pages/UserProfile";
 import DrawerMenu from "./components/DrawerMenu";
 import EventsNearYou from "./pages/EventsNearYou";
+import CreateYourOwnEvent from "./pages/CreateYourOwnEvent";
+import GlobalStyle from "./globalStyles";
 
 function App() {
   const { currentUser, setCurrentUser } = useContext(GlobalContext);
 
   return (
     <>
+      <GlobalStyle />
       <Router>
         <Header />
         <NavBar />
@@ -28,6 +31,11 @@ function App() {
           <Route exact path="/events/:eventId" element={<EventDetails />} />
           <Route exact path="/user/:userId" element={<UserProfile />} />
           <Route exact path="/eventsNearYou" element={<EventsNearYou />} />
+          <Route
+            exact
+            path="/createYourOwnEvent"
+            element={<CreateYourOwnEvent />}
+          />
         </Routes>
       </Router>
       <Footer />
