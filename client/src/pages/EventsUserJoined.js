@@ -5,7 +5,6 @@ import styled from "styled-components";
 import Event from "../components/Event";
 
 const EventsUserJoined = ({ userId, eventsJoined }) => {
-  console.log(eventsJoined, userId);
   return (
     <div>
       <h3>Events Joined</h3>

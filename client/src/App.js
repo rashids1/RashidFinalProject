@@ -16,7 +16,7 @@ import CreateYourOwnEvent from "./pages/CreateYourOwnEvent";
 import GlobalStyle from "./globalStyles";
 import CreateYourOwnEvent2 from "./pages/CreateYourOwnEvent2";
 
-function App() {
+const App = () => {
   const { currentUser, setCurrentUser } = useContext(GlobalContext);
 
   return (
@@ -42,6 +42,6 @@ function App() {
       <Footer />
     </>
   );
-}
+};
 
 export default App;

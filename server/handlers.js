@@ -148,7 +148,6 @@ const pushUserToDataBase = async (req, res) => {
         data: emailInArray[0],
       });
     }
-    console.log("emailInArray", emailInArray);
   } catch (err) {
     res.status(404).json({ Error: err, Message: "Error!" });
     console.log("I am the error");
@@ -180,7 +179,6 @@ const joinEvent = async (req, res) => {
         .collection("users")
         .updateOne({ _id: userId }, { $push: { eventsJoined: eventId } });
 
-      console.log("userJoined", userJoined);
       res.status(200).json({ status: 200, Message: `You Joined this event!` });
     }
     //already joined, will not be added to db
@@ -191,8 +189,6 @@ const joinEvent = async (req, res) => {
         userId: userId,
       });
     }
-
-    console.log("alreadyJoined", alreadyJoined);
   } catch (err) {
     console.log(err);
   }
@@ -215,14 +211,11 @@ const getGeocodesAndPostEventToDb = async (req, res) => {
     url: `https://api.opencagedata.com/geocode/v1/json?q=${adress}&key=${process.env.OPENCAGE_API_KEY}`,
   };
   const dateCreated = new Date();
-  console.log("req.query", req.query);
-  console.log("dataFromTheForm +user", dataFromTheForm, UserInfo);
 
   try {
     const requested = await axios.request(option);
     const lat = requested.data.results[0].geometry.lat;
     const lng = requested.data.results[0].geometry.lng;
-    console.log("responsed", lat, lng);
 
     const newEvent = {
       _id: uuidv4(),
@@ -237,7 +230,7 @@ const getGeocodesAndPostEventToDb = async (req, res) => {
       city: dataFromTheForm.City,
       province: dataFromTheForm.Province,
       coordinates: [lat, lng],
-      Category: dataFromTheForm.Category,
+      category: dataFromTheForm.Category,
     };
 
     const postToDB = await db.collection("events").insertOne(newEvent);
@@ -253,10 +246,6 @@ const getGeocodesAndPostEventToDb = async (req, res) => {
         { _id: newEvent._id },
         { $push: { userIdsJoined: UserInfo._id } }
       );
-
-    console.log("postToDB", postToDB);
-    console.log("addEventToUserArray", addEventToUserArray);
-    console.log("addUserIdToEvent", addUserIdToEvent);
 
     res.status(200).json({
       status: 200,

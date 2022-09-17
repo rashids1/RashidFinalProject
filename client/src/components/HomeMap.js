@@ -26,6 +26,7 @@ const HomeMap = () => {
         />
 
         {allEvents.map((thisEvent, index) => {
+          console.log(thisEvent);
           return (
             <Marker
               key={`idOfEvent${thisEvent._id}`}

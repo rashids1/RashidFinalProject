@@ -22,8 +22,8 @@ const Home = () => {
     <HomeWrapper>
       <div className="Banner"></div>
       <div className="eventsWrapper">
-        <h3 className="newEvents">Explore Recently Listed Events</h3>
-        <hr />
+        <h3 className="newEvents">New Events</h3>
+
         {allEvents ? (
           <div className="allEvents">
             {allEvents.map((event, index) => {
@@ -36,6 +36,7 @@ const Home = () => {
                 trainer,
                 _id,
                 price,
+                description,
               } = event;
 
               return (
@@ -48,9 +49,15 @@ const Home = () => {
                     <NavLink to={`/events/${_id}`}>
                       <h3 style={{ width: "200px" }}>{title}</h3>
                       <p>{date}</p>
+                      <p>{description}</p>
                       <p>{city}</p>
-                      <h3>{price == 0 ? "Free" : `Price:\$${price}`}</h3>
-                      <h3>Learn More</h3>
+                      <h3 className="prices">
+                        {price == 0 ? "Free" : `Price:\ $${price}`}
+                      </h3>
+
+                      <NavLink to={`/events/${_id}`}>
+                        <button>Learn More</button>
+                      </NavLink>
                     </NavLink>
                   </div>
                 </EventBox>
@@ -60,7 +67,9 @@ const Home = () => {
         ) : (
           <h1>Loading</h1>
         )}
-        <NavLink to="/events/allEvents">View All Upcoming Events</NavLink>
+        <NavLink to="/events/allEvents" style={{ color: "blue" }}>
+          View All Upcoming Events
+        </NavLink>
       </div>
 
       <h2>Events Near You</h2>
@@ -97,7 +106,6 @@ const HomeWrapper = styled.div`
   .Banner {
     width: 100%;
     height: 250px;
-    border: 1px solid blue;
     background-image: url(${banner2});
     background-position: bottom;
     background-size: cover;
@@ -112,6 +120,9 @@ const HomeWrapper = styled.div`
     height: 180px;
     border: 1px solid red;
   }
+  .prices {
+    margin-bottom: 15px;
+  }
 `;
 
 const EventBox = styled.div`
@@ -119,6 +130,7 @@ const EventBox = styled.div`
   width: 100%;
   background-color: white;
   margin-bottom: 15px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
   .textBox {
     margin-left: 5px;

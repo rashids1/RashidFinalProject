@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import Event from "../components/Event";
 
 const AllEvents = () => {
   const [allEvents, setAllEvents] = useState();
@@ -34,19 +35,20 @@ const AllEvents = () => {
           } = event;
 
           return (
-            <EventBox
-              className="eventBox"
-              key={`key=${index + 1}`}
-              price={price}
-            >
-              <NavLink to={`/events/${_id}`}>
-                <h1>{title}</h1>
-                <p>{date}</p>
-                <p>{city}</p>
-                <h5>{price == 0 ? "Free" : `Price:\$${price}`}</h5>
-                <h2>See Details</h2>
-              </NavLink>
-            </EventBox>
+            // <EventBox
+            //   className="eventBox"
+            //   key={`key=${index + 1}`}
+            //   price={price}
+            // >
+            //   <NavLink to={`/events/${_id}`}>
+            //     <h1>{title}</h1>
+            //     <p>{date}</p>
+            //     <p>{city}</p>
+            //     <h5>{price == 0 ? "Free" : `Price:\$${price}`}</h5>
+            //     <h2>See Details</h2>
+            //   </NavLink>
+            // </EventBox>
+            <Event id={_id} />
           );
         })}
       </StyledWrapper>
@@ -67,7 +69,8 @@ const StyledWrapper = styled.div`
 const EventBox = styled.div`
   border: 1px solid red;
   width: 100%;
-  background-color: ${(props) => (props.price > 0 ? "#ffd6dd" : "#d6d6ff")};
+  /* background-color: ${(props) =>
+    props.price > 0 ? "#ffd6dd" : "#d6d6ff"}; */
   a {
     text-decoration: none;
     color: inherit;

@@ -20,7 +20,6 @@ const DrawerMenu = () => {
     }
   };
 
-  console.log("visibleDrawerMenu", visibleDrawerMenu);
   return (
     <div
       className={
@@ -43,15 +42,7 @@ const DrawerMenu = () => {
             Explore All Events
           </h5>
         </NavLink>
-        <NavLink to={"/eventsNearYou"}>
-          <h5
-            onClick={() => {
-              closeDrawer();
-            }}
-          >
-            Events near you
-          </h5>
-        </NavLink>
+
         {currentUser ? (
           <NavLink to={`/user/${currentUser._id}`}>
             <h5

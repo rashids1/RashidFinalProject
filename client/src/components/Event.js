@@ -34,17 +34,27 @@ const Event = ({ id }) => {
     return (
       <EventWrapper>
         <h1>{title}</h1>
-        <h4>Host: {trainer}</h4>
-        <p>When? {date}</p>
+        <h4>
+          <b>Host:</b> {trainer}
+        </h4>
+        <p>
+          <b>When?:</b> {date}
+        </p>
 
         <div>
-          <span>{adress} </span>
+          <span>
+            <b>Adress:</b> {adress}{" "}
+          </span>
           <span>{city} </span> <span>{province} </span>
           <span>{country} </span>{" "}
         </div>
 
-        <p>Price: {price > 0 ? `$${price}` : "Free"}</p>
-        <p>{description}</p>
+        <p>
+          <b>Price:</b> {price > 0 ? `$${price}` : "Free"}
+        </p>
+        <p>
+          <b>Description:</b> {description}
+        </p>
         {/* <div>
           Participants
           {userIdsJoined?.map((id, index) => (
@@ -62,7 +72,8 @@ const Event = ({ id }) => {
 export default Event;
 
 const EventWrapper = styled.div`
-  border: 1px solid black;
+  padding: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
   width: 100%;
 `;

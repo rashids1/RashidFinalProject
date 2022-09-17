@@ -30,11 +30,12 @@ const CreateYourOwnEvent2 = () => {
           UserInfo: currentUser,
         },
       };
-      axios
-        .request(options)
-        .then((response) => console.log("FINAL SNSWER", response));
-    } catch (e) {
-      console.log(e);
+      axios.request(options).then((response) => {
+        console.log("RESPONSE", response);
+        alert(response.data.Message);
+      });
+    } catch (error) {
+      console.log(error);
     }
   };
 
