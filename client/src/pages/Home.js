@@ -22,7 +22,8 @@ const Home = () => {
     <HomeWrapper>
       <div className="Banner"></div>
       <div className="eventsWrapper">
-        <h3>New Events</h3>
+        <h3 className="newEvents">Explore Recently Listed Events</h3>
+        <hr />
         {allEvents ? (
           <div className="allEvents">
             {allEvents.map((event, index) => {
@@ -43,13 +44,15 @@ const Home = () => {
                   key={`key=${index}`}
                   price={price}
                 >
-                  <NavLink to={`/events/${_id}`}>
-                    <h1>{title}</h1>
-                    <p>{date}</p>
-                    <p>{city}</p>
-                    <h5>{price == 0 ? "Free" : `Price:\$${price}`}</h5>
-                    <h2>See Details</h2>
-                  </NavLink>
+                  <div className="textBox">
+                    <NavLink to={`/events/${_id}`}>
+                      <h3 style={{ width: "200px" }}>{title}</h3>
+                      <p>{date}</p>
+                      <p>{city}</p>
+                      <h3>{price == 0 ? "Free" : `Price:\$${price}`}</h3>
+                      <h3>Learn More</h3>
+                    </NavLink>
+                  </div>
                 </EventBox>
               );
             })}
@@ -72,6 +75,15 @@ const HomeWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  hr {
+    height: 1px;
+    width: 100%;
+    background-color: #f7f7f7;
+    opacity: 0.25;
+  }
+  .newEvents {
+    margin: 10px 0 0 0;
+  }
 
   .eventsWrapper {
     display: flex;
@@ -103,15 +115,19 @@ const HomeWrapper = styled.div`
 `;
 
 const EventBox = styled.div`
-  border: 1px solid grey;
+  border-bottom: 5px solid #eaeaea;
   width: 100%;
-  /* background-color: ${(props) =>
-    props.price > 0 ? "#ffd6dd" : "#d6d6ff"}; */
-  background-color: var(--4th-color);
-  margin: 10px 0 10px 0;
+  background-color: white;
+  margin-bottom: 15px;
 
+  .textBox {
+    margin-left: 5px;
+  }
   a {
     text-decoration: none;
     color: inherit;
+  }
+  h3 {
+    margin-bottom: 5px;
   }
 `;

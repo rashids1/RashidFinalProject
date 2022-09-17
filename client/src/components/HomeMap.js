@@ -8,7 +8,7 @@ const HomeMap = () => {
   // const [activeEvent, setActiveEvent] = useState();
 
   useEffect(() => {
-    fetch("/allEventsLimitOf3")
+    fetch("/allEvents")
       .then((response) => response.json())
       .then((data) => setAllEvents(data.data));
   }, []);

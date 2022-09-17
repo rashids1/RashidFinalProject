@@ -6,7 +6,7 @@ const AllEvents = () => {
   const [allEvents, setAllEvents] = useState();
 
   useEffect(() => {
-    fetch("/allEventsLimitOf3")
+    fetch("/allEvents")
       .then((response) => response.json())
       .then((data) => setAllEvents(data.data));
   }, []);

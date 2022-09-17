@@ -92,7 +92,6 @@ const HeaderWrapper = styled.div`
   flex-direction: row;
   width: 100%;
   height: 8vh;
-
   margin: 0;
   background-color: white;
 
@@ -135,6 +134,8 @@ const HeaderWrapper = styled.div`
 
   .mobileMenuIcon {
     margin: 14px;
+    border: none;
+    background-color: white;
   }
 
   @media ${device.laptop} {

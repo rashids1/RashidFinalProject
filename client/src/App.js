@@ -14,6 +14,7 @@ import DrawerMenu from "./components/DrawerMenu";
 import EventsNearYou from "./pages/EventsNearYou";
 import CreateYourOwnEvent from "./pages/CreateYourOwnEvent";
 import GlobalStyle from "./globalStyles";
+import CreateYourOwnEvent2 from "./pages/CreateYourOwnEvent2";
 
 function App() {
   const { currentUser, setCurrentUser } = useContext(GlobalContext);
@@ -34,7 +35,7 @@ function App() {
           <Route
             exact
             path="/createYourOwnEvent"
-            element={<CreateYourOwnEvent />}
+            element={<CreateYourOwnEvent2 />}
           />
         </Routes>
       </Router>

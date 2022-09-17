@@ -85,32 +85,3 @@ const DrawerMenu = () => {
   );
 };
 export default DrawerMenu;
-
-// const StyledDrawerDiv = styled.div`
-//   a {
-//     text-decoration: none;
-//     color: inherit;
-//   }
-//   animation-name: view;
-//   animation-duration: 2s;
-
-//   ${(props) =>
-//     props.visible
-//       ? `
-
-//       @keyframes view{
-//         0%{ background-color: #e8e8e8;}
-//         100%{background-color: blue;}
-//       }
-//     `
-//       : `
-
-//       `};
-
-//   flex-direction: column;
-//   position: absolute;
-//   z-index: 3;
-//   background-color: #e8e8e8;
-
-//   height: 100vh;
-// `;

@@ -1,6 +1,7 @@
 const { MongoClient } = require("mongodb");
 
 require("dotenv").config();
+const axios = require("axios").default;
 
 const { MONGO_URI } = process.env;
 
@@ -10,6 +11,7 @@ const options = {
 };
 
 const { v4: uuidv4 } = require("uuid");
+const opencage = require("opencage-api-client");
 
 const getAllEvents = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
@@ -30,7 +32,7 @@ const getAllEvents = async (req, res) => {
   console.log("disconenected!");
 };
 
-const getAllEventsLimitOf2 = async (req, res) => {
+const getAllEventsLimitOf3 = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
   await client.connect();
   const db = client.db("workout4all");
@@ -198,12 +200,86 @@ const joinEvent = async (req, res) => {
   client.close();
 };
 
+const createNewEvent = async (req, res) => {};
+
+const getGeocodesAndPostEventToDb = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+  await client.connect();
+  const db = client.db("workout4all");
+  // const adress = "2345 charles darwin , montreal ,qc , h4r2x9";
+  const adress = req.query.adressOfEvent;
+  const dataFromTheForm = JSON.parse(req.query.dataFromTheForm);
+  const UserInfo = JSON.parse(req.query.UserInfo);
+  const option = {
+    method: "GET",
+    url: `https://api.opencagedata.com/geocode/v1/json?q=${adress}&key=${process.env.OPENCAGE_API_KEY}`,
+  };
+  const dateCreated = new Date();
+  console.log("req.query", req.query);
+  console.log("dataFromTheForm +user", dataFromTheForm, UserInfo);
+
+  try {
+    const requested = await axios.request(option);
+    const lat = requested.data.results[0].geometry.lat;
+    const lng = requested.data.results[0].geometry.lng;
+    console.log("responsed", lat, lng);
+
+    const newEvent = {
+      _id: uuidv4(),
+      title: dataFromTheForm.TitleOfEvent,
+      description: dataFromTheForm.Description,
+      date: dataFromTheForm.Date,
+      trainer: UserInfo._id,
+      dateCreated: dateCreated,
+      userIdsJoined: [],
+      price: dataFromTheForm.Price,
+      adress: dataFromTheForm.Adress,
+      city: dataFromTheForm.City,
+      province: dataFromTheForm.Province,
+      coordinates: [lat, lng],
+      Category: dataFromTheForm.Category,
+    };
+
+    const postToDB = await db.collection("events").insertOne(newEvent);
+    const addEventToUserArray = await db
+      .collection("users")
+      .updateOne(
+        { _id: UserInfo._id },
+        { $push: { eventsJoined: newEvent._id } }
+      );
+    const addUserIdToEvent = await db
+      .collection("events")
+      .updateOne(
+        { _id: newEvent._id },
+        { $push: { userIdsJoined: UserInfo._id } }
+      );
+
+    console.log("postToDB", postToDB);
+    console.log("addEventToUserArray", addEventToUserArray);
+    console.log("addUserIdToEvent", addUserIdToEvent);
+
+    res.status(200).json({
+      status: 200,
+      Message: "Event was created!",
+      NewEvent: newEvent,
+    });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ status: 500, Message: "There was an error!", Error: error });
+  }
+  client.close();
+};
+
 module.exports = {
   getAllEvents,
-  getAllEventsLimitOf2,
+  getAllEventsLimitOf3,
   pushUserToDataBase,
   getUserInformation,
   getEventInformation,
   getEventInformationById,
   joinEvent,
+  createNewEvent,
+  getGeocodesAndPostEventToDb,
 };
