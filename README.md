@@ -27,3 +27,8 @@ Create your own Workout event and once submited the event gets posted to a Mongo
 Sign in or create your own account using the Auth0 Log in API
 
 <img width="340" alt="Screen Shot 2022-10-09 at 4 19 23 PM" src="https://user-images.githubusercontent.com/14065675/194778471-d9377182-f497-4225-8cca-22828ae8bf98.png">
+
+Sliding left side Drawer for a better user experience 
+
+<img width="555" alt="Screenshot 2023-01-11 at 1 00 01 PM" src="https://user-images.githubusercontent.com/14065675/211883275-74ef3cc3-97e2-44f7-814d-3882aaf46c38.png">
+
